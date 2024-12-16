@@ -126,43 +126,6 @@
                                                 Opacity="0.66"
                                                 Text="{Binding Path=Title, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}}" />
                                             <Button
-                                                x:Name="MinButton"
-                                                Grid.Column="2"
-                                                Width="34"
-                                                Height="26"
-                                                VerticalAlignment="Center"
-                                                Click="MinButtonClick"
-                                                Style="{StaticResource VS2012WindowStyleTitleBarButton}"
-                                                WindowChrome.IsHitTestVisibleInChrome="True">
-                                                <Grid MaxWidth="9" MaxHeight="9">
-                                                    <Path
-                                                        Data="M0,8 H8 M0,7 H8 M0,6 H8"
-                                                        RenderOptions.EdgeMode="Aliased"
-                                                        Stretch="None"
-                                                        Stroke="{StaticResource VS2012WindowStatusForeground}"
-                                                        StrokeThickness="1" />
-                                                </Grid>
-                                            </Button>
-                                            <Button
-                                                x:Name="MaxButton"
-                                                Grid.Column="3"
-                                                Width="34"
-                                                Height="26"
-                                                VerticalAlignment="Center"
-                                                Click="MaxButtonClick"
-                                                Style="{StaticResource VS2012WindowStyleTitleBarButton}"
-                                                WindowChrome.IsHitTestVisibleInChrome="True">
-                                                <Grid MaxWidth="9" MaxHeight="9">
-                                                    <Path
-                                                        x:Name="PART_MaxButton_Path"
-                                                        Data="M0,0 H8 V8 H0 V0 M0,1 H8 M0,2 H8"
-                                                        RenderOptions.EdgeMode="Aliased"
-                                                        Stretch="None"
-                                                        Stroke="{StaticResource VS2012WindowStatusForeground}"
-                                                        StrokeThickness="1" />
-                                                </Grid>
-                                            </Button>
-                                            <Button
                                                 x:Name="CloseButton"
                                                 Grid.Column="4"
                                                 Width="34"
@@ -188,9 +151,6 @@
                     </Border>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="WindowState" Value="Maximized">
-                            <Setter TargetName="PART_MaxButton_Path" Property="Data" Value="M0,3 H5 V8 H0 V3 M0,4 H5 M3,0 H8 V5 H7 M3,1 H8" />
-                        </Trigger>
                         <Trigger Property="WindowState" Value="Normal">
                             <Setter TargetName="PART_Border" Property="Effect">
                                 <Setter.Value>

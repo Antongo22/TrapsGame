@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TrapsGame.Windows;
 
 namespace TrapsGame.Pages
 {
@@ -20,7 +21,7 @@ namespace TrapsGame.Pages
     /// </summary>
     public partial class MenuPage : Page
     {
-        public MenuPage()
+        public MenuPage(MainWindow mainWindow)
         {
             InitializeComponent();
         }
