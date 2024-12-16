@@ -27,7 +27,13 @@ namespace TrapsGame.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MainFrame.Content = menuPage;
+            ChangePage(menuPage);
         }
+
+        public void ChangePage(Page page)
+        {
+            MainFrame.Content = page;
+        }
+
     }
 }

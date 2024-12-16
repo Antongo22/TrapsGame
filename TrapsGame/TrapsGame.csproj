@@ -9,7 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Processes\" />
+    <None Remove="Pages\аниме тян.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Processes\Record.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pages\аниме тян.png" />
   </ItemGroup>
 
 </Project>

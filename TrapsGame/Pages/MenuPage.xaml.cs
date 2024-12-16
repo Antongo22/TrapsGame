@@ -13,17 +13,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TrapsGame.Windows;
+using TrapsGame.Processes;
 
-namespace TrapsGame.Pages
+namespace TrapsGame.Pages;
+
+/// <summary>
+/// Логика взаимодействия для MenuPage.xaml
+/// </summary>
+public partial class MenuPage : Page
 {
-    /// <summary>
-    /// Логика взаимодействия для MenuPage.xaml
-    /// </summary>
-    public partial class MenuPage : Page
+    MainWindow _mainWindow;
+
+    public MenuPage(MainWindow mainWindow)
     {
-        public MenuPage(MainWindow mainWindow)
-        {
-            InitializeComponent();
-        }
+        _mainWindow = mainWindow;
+        InitializeComponent();
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        RecordTextBlock.Text = $"Лучший результат — {Record.Get()}";
+    }
+
+    private void ButtonPlay_Click(object sender, RoutedEventArgs e)
+    {
+        _mainWindow.ChangePage(new GamePage(_mainWindow, this));
     }
 }
