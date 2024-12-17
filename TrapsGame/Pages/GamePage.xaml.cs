@@ -30,6 +30,13 @@ public partial class GamePage : Page
     private TimeSpan _currentSpawnInterval = TimeSpan.FromSeconds(2); // Текущий интервал появления врагов
     private const double MinSpawnInterval = 0.1; // Минимальный интервал появления врагов
 
+    private int _score = 0; // Счет игрока
+    private DateTime _startTime = DateTime.Now; // Время начала игры
+    private readonly DispatcherTimer _scoreTimer; // Таймер для обновления счета
+    private const int ScorePerSecond = 1; // Очки за каждую секунду
+    private const int ScorePerEnemy = 50; // Очки за уничтоженного врага
+    private const int VictoryTime = 60; // Время для победы (в секундах)
+
     public GamePage(MainWindow mainWindow, MenuPage menuPage)
     {
         InitializeComponent();
@@ -42,7 +49,7 @@ public partial class GamePage : Page
         {
             MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}");
         }
-        _player = new Player(player, MainCanvas, 350, 350, 150);
+        _player = new Player(player, MainCanvas, 350, 350, 250);
 
         this.KeyDown += GamePage_KeyDown;
         this.KeyUp += GamePage_KeyUp;
@@ -53,6 +60,8 @@ public partial class GamePage : Page
         CompositionTarget.Rendering += CompositionTarget_Rendering;
 
         UpdateTrapCounter();
+        UpdateTimeCounter();
+        UpdateScoreCounter();
 
         _enemySpawnTimer = new DispatcherTimer
         {
@@ -63,10 +72,23 @@ public partial class GamePage : Page
 
         _difficultyTimer = new DispatcherTimer
         {
-            Interval = TimeSpan.FromSeconds(2) 
+            Interval = TimeSpan.FromSeconds(2)
         };
         _difficultyTimer.Tick += DifficultyTimer_Tick;
         _difficultyTimer.Start();
+
+        _scoreTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(1)
+        };
+        _scoreTimer.Tick += ScoreTimer_Tick;
+        _scoreTimer.Start();
+    }
+
+    private void UpdateTimeCounter()
+    {
+        var elapsedTime = DateTime.Now - _startTime;
+        TimeCounterTextBlock.Text = $"Время: {elapsedTime.Minutes:00}:{elapsedTime.Seconds:00}";
     }
 
     private void GamePage_KeyDown(object sender, KeyEventArgs e)
@@ -156,6 +178,29 @@ public partial class GamePage : Page
 
     }
 
+    private void ScoreTimer_Tick(object sender, EventArgs e)
+    {
+        _score += ScorePerSecond;
+
+        UpdateScoreCounter();
+
+        UpdateTimeCounter();
+
+        var elapsedTime = DateTime.Now - _startTime;
+        if (elapsedTime.TotalSeconds >= VictoryTime)
+        {
+            MessageBox.Show($"Поздравляем! Вы победили!\nВаш счет: {_score}");
+            Application.Current.Shutdown();
+        }
+    }
+
+    private void UpdateScoreCounter()
+    {
+        ScoreCounterTextBlock.Text = $"Очки: {_score}";
+    }
+
+  
+
     private async void RemoveTrapAfterDelay(Trap trap, TimeSpan delay)
     {
         await Task.Delay(delay);
@@ -208,11 +253,14 @@ public partial class GamePage : Page
                 {
                     enemy.Remove();
                     _enemies.Remove(enemy);
-                   
+
                     _traps.Remove(trap);
                     trap.Remove();
                     _availableTraps++;
                     UpdateTrapCounter();
+
+                    _score += ScorePerEnemy;
+                    UpdateScoreCounter();
                     break;
                 }
             }
@@ -224,6 +272,7 @@ public partial class GamePage : Page
             }
         }
     }
+
 
     private bool IsColliding(Enemy enemy, Trap trap)
     {

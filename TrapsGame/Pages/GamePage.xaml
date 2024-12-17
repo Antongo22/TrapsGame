@@ -8,27 +8,36 @@
       d:DesignHeight="800" d:DesignWidth="800"
       Title="GamePage">
 
-    <!-- Используем Grid для размещения элементов -->
     <Grid>
-        <!-- Добавляем строки в Grid -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Строка для счёта -->
             <RowDefinition Height="*"/>
-            <!-- Строка для игрового поля -->
         </Grid.RowDefinitions>
 
-        <!-- TextBlock для отображения количества ловушек -->
-        <TextBlock x:Name="TrapCounterTextBlock" 
-                   Grid.Row="0" 
-                   Width="100" 
-                   Height="30" 
-                   HorizontalAlignment="Left" 
-                   VerticalAlignment="Top" 
-                   FontSize="16" 
-                   TextAlignment="Center" />
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
+            <TextBlock x:Name="TrapCounterTextBlock" 
+                       Width="100" 
+                       Height="30" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Top" 
+                       FontSize="16" 
+                       TextAlignment="Center" />
+            <TextBlock x:Name="ScoreCounterTextBlock" 
+                       Width="100" 
+                       Height="30" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Top" 
+                       FontSize="16" 
+                       TextAlignment="Center" />
+            <TextBlock x:Name="TimeCounterTextBlock" 
+                       Width="100" 
+                       Height="30" 
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Top" 
+                       FontSize="16" 
+                       TextAlignment="Center" />
+        </StackPanel>
 
-        <!-- Игровое поле -->
         <Canvas x:Name="MainCanvas" 
                 Grid.Row="1" >
             <Image x:Name="player" Source="/Images/player.png" Width="80" Height="80"/>
