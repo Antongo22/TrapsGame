@@ -64,6 +64,9 @@ public partial class GamePage : Page
         }
 
         _player = new Player(player, MainCanvas, Settings.Instance.PlayerStartPositionX, Settings.Instance.PlayerStartPositionY, Settings.Instance.PlayerMoveStep);
+        player.Width = Settings.Instance.PlayerWidth;
+        player.Height = Settings.Instance.PlayerHeight;
+
 
         this.KeyDown += GamePage_KeyDown;
         this.KeyUp += GamePage_KeyUp;

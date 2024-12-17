@@ -40,6 +40,8 @@ namespace TrapsGame.Pages
             EnemyRandomDeviationTextBox.Text = settings.EnemyRandomDeviation.ToString(CultureInfo.InvariantCulture);
             WindowWidthTextBox.Text = settings.WindowWidth.ToString(CultureInfo.InvariantCulture);
             WindowHeightTextBox.Text = settings.WindowHeight.ToString(CultureInfo.InvariantCulture);
+            PlayerWidthTextBox.Text = settings.PlayerWidth.ToString(CultureInfo.InvariantCulture);
+            PlayerHeightTextBox.Text = settings.PlayerHeight.ToString(CultureInfo.InvariantCulture);
         }
 
         private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
@@ -69,6 +71,8 @@ namespace TrapsGame.Pages
                 settings.EnemyRandomDeviation = double.Parse(EnemyRandomDeviationTextBox.Text, CultureInfo.InvariantCulture);
                 settings.WindowWidth = double.Parse(WindowWidthTextBox.Text, CultureInfo.InvariantCulture);
                 settings.WindowHeight = double.Parse(WindowHeightTextBox.Text, CultureInfo.InvariantCulture);
+                settings.PlayerWidth = double.Parse(PlayerWidthTextBox.Text, CultureInfo.InvariantCulture);
+                settings.PlayerHeight = double.Parse(PlayerHeightTextBox.Text, CultureInfo.InvariantCulture);
 
                 settings.SaveSettings();
 

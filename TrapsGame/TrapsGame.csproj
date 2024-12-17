@@ -10,8 +10,10 @@
 
   <ItemGroup>
     <None Remove="Images\enemy.png" />
+    <None Remove="Images\map.png" />
     <None Remove="Images\player.png" />
-    <None Remove="Images\Trap.png" />
+    <None Remove="Images\trap.png" />
+    <None Remove="Windows\ico.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,9 +23,11 @@
   <ItemGroup>
     <None Include="Processes\Record.cs" />
     <Resource Include="Images\enemy.png" />
+    <Resource Include="Images\map.png" />
     <Resource Include="Images\player.png" />
     <Resource Include="Images\trap.png" />
     <Resource Include="Resources\ResourceDictionary.xaml" />
+    <Resource Include="Images\ico.png" />
   </ItemGroup>
 
 </Project>

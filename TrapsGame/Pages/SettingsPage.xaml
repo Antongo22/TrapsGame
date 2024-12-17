@@ -209,6 +209,27 @@
                     Width="200"
                     HorizontalAlignment="Left" />
 
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Ширина игрока:" />
+                <TextBox
+                    x:Name="PlayerWidthTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Высота игрока:" />
+                <TextBox
+                    x:Name="PlayerHeightTextBox"
+                    Width="100"
+                    HorizontalAlignment="Left" />
+
+
                 <Button
                     Width="200"
                     Height="40"

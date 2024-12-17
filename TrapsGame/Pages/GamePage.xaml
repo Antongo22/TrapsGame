@@ -8,13 +8,17 @@
       d:DesignHeight="800" d:DesignWidth="800"
       Title="GamePage">
 
-    <Grid>
+    <Grid >
+
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/map.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Верхняя панель с кнопкой паузы и счетчиками -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
             <TextBlock x:Name="TrapCounterTextBlock" 
                        Width="100" 
@@ -39,7 +43,6 @@
                        TextAlignment="Center" />
         </StackPanel>
 
-        <!-- Кнопка паузы в правом верхнем углу -->
         <Button x:Name="PauseButton" 
                 Grid.Row="0" 
                 Content="Пауза" 
@@ -49,13 +52,11 @@
                 VerticalAlignment="Top" 
                 Click="PauseButton_Click" />
 
-        <!-- Основной Canvas -->
         <Canvas x:Name="MainCanvas" 
                 Grid.Row="1" >
             <Image x:Name="player" Source="/Images/player.png" Width="80" Height="80"/>
         </Canvas>
 
-        <!-- Панель паузы -->
         <Grid x:Name="PausePanel" 
       Grid.RowSpan="2" 
       Background="Black" 

@@ -32,6 +32,8 @@ public class Settings
     public double EnemyRandomDeviation { get; set; }
     public double WindowWidth { get; set; }
     public double WindowHeight { get; set; }
+    public double PlayerWidth { get; set; } 
+    public double PlayerHeight { get; set; }
 
     private Settings()
     {
@@ -78,6 +80,8 @@ public class Settings
             EnemyRandomDeviation = double.Parse(root.Element("EnemyRandomDeviation")?.Value ?? "1.0", CultureInfo.InvariantCulture);
             WindowWidth = double.Parse(root.Element("WindowWidth")?.Value ?? "800", CultureInfo.InvariantCulture);
             WindowHeight = double.Parse(root.Element("WindowHeight")?.Value ?? "600", CultureInfo.InvariantCulture);
+            PlayerWidth = double.Parse(root.Element("PlayerWidth")?.Value ?? "80", CultureInfo.InvariantCulture);
+            PlayerHeight = double.Parse(root.Element("PlayerHeight")?.Value ?? "80", CultureInfo.InvariantCulture);
         }
         catch (Exception ex)
         {
@@ -103,13 +107,15 @@ public class Settings
                 new XElement("PlayerStartPositionY", "350"),
                 new XElement("TrapWidth", "30"),
                 new XElement("TrapHeight", "30"),
-                new XElement("TrapStrokeThickness", "2"),
+                new XElement("TrapStrokeThickness", "0"),
                 new XElement("EnemyWidth", "30"),
                 new XElement("EnemyHeight", "30"),
                 new XElement("EnemyMoveSpeed", "1"),
                 new XElement("EnemyRandomDeviation", "1.0"),
                 new XElement("WindowWidth", "800"), 
-                new XElement("WindowHeight", "800") 
+                new XElement("WindowHeight", "800"),
+                new XElement("PlayerWidth", "80"),
+                new XElement("PlayerHeight", "80")
             )
         );
 
@@ -146,7 +152,9 @@ public class Settings
                 new XElement("EnemyMoveSpeed", EnemyMoveSpeed.ToString(CultureInfo.InvariantCulture)),
                 new XElement("EnemyRandomDeviation", EnemyRandomDeviation.ToString(CultureInfo.InvariantCulture)),
                 new XElement("WindowWidth", WindowWidth.ToString(CultureInfo.InvariantCulture)),
-                new XElement("WindowHeight", WindowHeight.ToString(CultureInfo.InvariantCulture))
+                new XElement("WindowHeight", WindowHeight.ToString(CultureInfo.InvariantCulture)),
+                new XElement("PlayerWidth", PlayerWidth.ToString(CultureInfo.InvariantCulture)),
+                new XElement("PlayerHeight", PlayerHeight.ToString(CultureInfo.InvariantCulture))
             )
         );
 

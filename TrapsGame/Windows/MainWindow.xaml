@@ -8,7 +8,7 @@
         Title="Traps" Height="800" Width="800"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource VS2012WindowStyle}" Loaded="Window_Loaded">
+        Style="{StaticResource VS2012WindowStyle}" Loaded="Window_Loaded" Icon="/Images/ico.png">
     <Grid>
     <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>
