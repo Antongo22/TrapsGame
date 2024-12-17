@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -38,6 +39,8 @@ public partial class GamePage : Page
     private DateTime _pauseStartTime; // Время начала паузы
     private TimeSpan _totalPauseTime = TimeSpan.Zero; // Общее время паузы
 
+
+    private MediaPlayer _soundPlayer = new MediaPlayer();
 
 
     MainWindow _mainWindow;
@@ -324,18 +327,33 @@ public partial class GamePage : Page
 
                     _score += Settings.Instance.ScorePerEnemy;
                     UpdateScoreCounter();
+
+                    PlaySound("Resources/boom.mp3");
+
                     break;
                 }
             }
 
             if (IsColliding(enemy, player))
             {
+                PlaySound("Resources/death.mp3");
+
                 _mainWindow.ChangePage(new EndGamePage(false, _score, DateTime.Now - _startTime - _totalPauseTime, _mainWindow, _menuPage));
                 TogglePause();
             }
         }
     }
 
+    private void PlaySound(string soundPath)
+    {
+
+        string basePath = AppDomain.CurrentDomain.BaseDirectory;
+        string musicPath = Path.Combine(basePath, soundPath);
+
+        Uri soundUri = new Uri(musicPath, UriKind.Relative);
+        _soundPlayer.Open(soundUri);
+        _soundPlayer.Play();
+    }
 
     private bool IsColliding(Enemy enemy, Trap trap)
     {

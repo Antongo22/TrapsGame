@@ -1,15 +1,21 @@
-﻿<Window x:Class="TrapsGame.Windows.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TrapsGame.Windows"
-        mc:Ignorable="d"
-        Title="Traps" Height="800" Width="800"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
-        Style="{StaticResource VS2012WindowStyle}" Loaded="Window_Loaded" Icon="/Images/ico.png">
+﻿<Window
+    x:Class="TrapsGame.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TrapsGame.Windows"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Traps"
+    Width="800"
+    Height="800"
+    Icon="/Images/ico.png"
+    Loaded="Window_Loaded"
+    ResizeMode="NoResize"
+    Style="{StaticResource VS2012WindowStyle}"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Grid>
-    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+       
     </Grid>
 </Window>
