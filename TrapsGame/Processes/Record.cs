@@ -22,7 +22,11 @@ internal static class Record
 
     static public void Set(int value)
     {
-        File.WriteAllText(_path, value.ToString());
-    }
+        int last = Get();
 
+        if (value > last)
+        {
+            File.WriteAllText(_path, value.ToString());
+        }
+    }
 }
