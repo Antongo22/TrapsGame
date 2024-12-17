@@ -19,31 +19,25 @@ namespace TrapsGame.Units
             _yPosition = initialY;
             _moveStep = moveStep;
 
-            // Устанавливаем начальную позицию игрока
             UpdateImagePosition();
 
-            // Устанавливаем ZIndex для игрока (например, 2, чтобы быть выше ловушки)
             Canvas.SetZIndex(_playerImage, 2);
         }
 
         public void Move(bool isWPressed, bool isAPressed, bool isSPressed, bool isDPressed, TimeSpan elapsedTime)
         {
-            // Вычисляем шаг перемещения с учетом времени
             double moveDelta = _moveStep * elapsedTime.TotalSeconds;
 
-            // Обновляем позицию игрока
             if (isWPressed) _yPosition = Math.Max(0, _yPosition - moveDelta);
             if (isAPressed) _xPosition = Math.Max(0, _xPosition - moveDelta);
             if (isSPressed) _yPosition = Math.Min(_gameCanvas.ActualHeight - _playerImage.ActualHeight - 30, _yPosition + moveDelta);
             if (isDPressed) _xPosition = Math.Min(_gameCanvas.ActualWidth - _playerImage.ActualWidth, _xPosition + moveDelta);
 
-            // Обновляем позицию изображения
             UpdateImagePosition();
         }
 
         private void UpdateImagePosition()
         {
-            // Устанавливаем позицию изображения
             Canvas.SetLeft(_playerImage, _xPosition);
             Canvas.SetTop(_playerImage, _yPosition);
         }

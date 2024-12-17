@@ -42,7 +42,6 @@ public class Enemy
         Canvas.SetZIndex(_enemyImage, 1);
     }
 
-    // Обновление позиции врага
     public void UpdatePosition(double playerX, double playerY)
     {
         double directionX = playerX - X;

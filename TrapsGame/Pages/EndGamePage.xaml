@@ -9,6 +9,34 @@
       Title="EndGamePage">
 
     <Grid>
-        
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.Foreground="White">
+            <!-- Заголовок: Победа/Проигрыш -->
+            <TextBlock x:Name="ResultTextBlock" 
+                       FontSize="48" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,20" />
+
+            <!-- Количество очков -->
+            <TextBlock x:Name="ScoreTextBlock" 
+                       FontSize="24" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,10" />
+
+            <!-- Время игры -->
+            <TextBlock x:Name="TimeTextBlock" 
+                       FontSize="24" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,20" />
+
+            <!-- Кнопка "Продолжить" -->
+            <Button x:Name="ContinueButton" 
+                    Content="Продолжить" 
+                    Width="200" 
+                    Height="50" 
+                    FontSize="18" 
+                    HorizontalAlignment="Center" 
+                    Click="ContinueButton_Click" />
+        </StackPanel>
     </Grid>
 </Page>

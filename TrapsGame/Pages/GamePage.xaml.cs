@@ -41,9 +41,15 @@ public partial class GamePage : Page
     private DateTime _pauseStartTime; // Время начала паузы
     private TimeSpan _totalPauseTime = TimeSpan.Zero; // Общее время паузы
 
+    MainWindow _mainWindow;
+    MenuPage _menuPage;
+
     public GamePage(MainWindow mainWindow, MenuPage menuPage)
     {
         InitializeComponent();
+        
+        _mainWindow = mainWindow;
+        _menuPage = menuPage;
 
         try
         {
@@ -236,10 +242,11 @@ public partial class GamePage : Page
         var elapsedTime = DateTime.Now - _startTime - _totalPauseTime;
         if (elapsedTime.TotalSeconds >= VictoryTime)
         {
-            MessageBox.Show($"Поздравляем! Вы победили!\nВаш счет: {_score}");
-            Application.Current.Shutdown();
+            _mainWindow.ChangePage(new EndGamePage(true, _score, DateTime.Now - _startTime - _totalPauseTime, _mainWindow, _menuPage));
+            TogglePause();
         }
-    }
+    } 
+
 
     private void UpdateScoreCounter()
     {
@@ -314,8 +321,8 @@ public partial class GamePage : Page
 
             if (IsColliding(enemy, player))
             {
-                MessageBox.Show("Игра окончена! Враг добрался до вас.");
-                Application.Current.Shutdown();
+                _mainWindow.ChangePage(new EndGamePage(false, _score, DateTime.Now - _startTime - _totalPauseTime, _mainWindow, _menuPage));
+                TogglePause();
             }
         }
     }
