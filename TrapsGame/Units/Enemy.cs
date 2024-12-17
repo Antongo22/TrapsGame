@@ -11,8 +11,12 @@ public class Enemy
 {
     private readonly Rectangle _enemyImage; // Изображение врага
     private readonly Canvas _gameCanvas; // Ссылка на Canvas
-    private readonly double _moveSpeed = 1; // Основная скорость движения врага
     private readonly Random _random = new(); // Для случайного направления
+
+    private const double EnemyWidth = 30; // Ширина врага
+    private const double EnemyHeight = 30; // Высота врага
+    private const double EnemyMoveSpeed = 1; // Скорость движения врага
+    private const double EnemyRandomDeviation = 1.0; // Случайное отклонение движения врага
 
     public double X { get; private set; } // Текущая позиция X
     public double Y { get; private set; } // Текущая позиция Y
@@ -29,8 +33,8 @@ public class Enemy
 
         _enemyImage = new Rectangle
         {
-            Width = 30,
-            Height = 30,
+            Width = EnemyWidth,
+            Height = EnemyHeight,
             Fill = new ImageBrush { ImageSource = enemyImage },
             StrokeThickness = 2
         };
@@ -54,12 +58,12 @@ public class Enemy
             directionY /= distanceToPlayer;
         }
 
-        double randomDeviation = 1; 
-        double deviationX = (_random.NextDouble() * 2 - 1) * randomDeviation;
-        double deviationY = (_random.NextDouble() * 2 - 1) * randomDeviation;
 
-        X += (directionX + deviationX) * _moveSpeed;
-        Y += (directionY + deviationY) * _moveSpeed;
+        double deviationX = (_random.NextDouble() * 2 - 1) * EnemyRandomDeviation;
+        double deviationY = (_random.NextDouble() * 2 - 1) * EnemyRandomDeviation;
+
+        X += (directionX + deviationX) * EnemyMoveSpeed;
+        Y += (directionY + deviationY) * EnemyMoveSpeed;
 
         X = Math.Clamp(X, 0, _gameCanvas.ActualWidth - _enemyImage.Width);
         Y = Math.Clamp(Y, 0, _gameCanvas.ActualHeight - _enemyImage.Height);

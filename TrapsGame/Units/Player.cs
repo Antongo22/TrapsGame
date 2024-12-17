@@ -7,6 +7,8 @@ namespace TrapsGame.Units
     {
         private double _xPosition; // Текущая позиция по X
         private double _yPosition; // Текущая позиция по Y
+
+
         private readonly double _moveStep; // Шаг перемещения
         private readonly Image _playerImage; // Ссылка на изображение игрока
         private readonly Canvas _gameCanvas; // Ссылка на Canvas, где находится игрок

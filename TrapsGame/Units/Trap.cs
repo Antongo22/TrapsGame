@@ -11,10 +11,17 @@ public class Trap
     private readonly Rectangle _trapImage; // Изображение ловушки
     private readonly Canvas _gameCanvas; // Ссылка на Canvas
 
+
+    private const double TrapWidth = 30; // Ширина ловушки
+    private const double TrapHeight = 30; // Высота ловушки
+    private const double TrapStrokeThickness = 2; // Толщина обводки ловушки
+
     public double X { get; } // Позиция X ловушки
     public double Y { get; } // Позиция Y ловушки
     public double Width => _trapImage.Width; // Ширина ловушки
     public double Height => _trapImage.Height; // Высота ловушки
+
+
 
     public Trap(Canvas gameCanvas, double x, double y)
     {
@@ -26,11 +33,11 @@ public class Trap
 
         _trapImage = new Rectangle
         {
-            Width = 30,
-            Height = 30,
+            Width = TrapWidth,
+            Height = TrapHeight,
             Fill = new ImageBrush { ImageSource = trapImage },
             Stroke = Brushes.Black,
-            StrokeThickness = 2
+            StrokeThickness = TrapStrokeThickness
         };
 
         Canvas.SetLeft(_trapImage, X);

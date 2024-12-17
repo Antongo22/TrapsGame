@@ -21,35 +21,48 @@ public partial class GamePage : Page
     private readonly List<Trap> _traps = new(); // Список ловушек
     private readonly List<Point> _trapPositions = new(); // Список координат ловушек
     private readonly List<Enemy> _enemies = new(); // Список врагов
-    private int _availableTraps = 10; // Доступное количество ловушек
+    private int _availableTraps; // Доступное количество ловушек
 
     private readonly DispatcherTimer _enemySpawnTimer; // Таймер для создания врагов
     private readonly DispatcherTimer _difficultyTimer; // Таймер для увеличения сложности
     private readonly Random _random = new(); // Для случайного появления врагов
 
     private TimeSpan _currentSpawnInterval = TimeSpan.FromSeconds(2); // Текущий интервал появления врагов
-    private const double MinSpawnInterval = 0.1; // Минимальный интервал появления врагов
 
     private int _score = 0; // Счет игрока
     private DateTime _startTime = DateTime.Now; // Время начала игры
     private readonly DispatcherTimer _scoreTimer; // Таймер для обновления счета
-    private const int ScorePerSecond = 1; // Очки за каждую секунду
-    private const int ScorePerEnemy = 50; // Очки за уничтоженного врага
-    private const int VictoryTime = 60; // Время для победы (в секундах)
 
     private bool _isPaused = false; // Флаг для отслеживания состояния паузы
     private DateTime _pauseStartTime; // Время начала паузы
     private TimeSpan _totalPauseTime = TimeSpan.Zero; // Общее время паузы
 
+    private const int InitialAvailableTraps = 10; // Начальное количество ловушек
+    private const double InitialSpawnInterval = 2.0; // Начальный интервал появления врагов
+    private const double MinSpawnInterval = 0.1; // Минимальный интервал появления врагов
+    private const int ScorePerSecond = 1; // Очки за каждую секунду
+    private const int ScorePerEnemy = 50; // Очки за уничтоженного врага
+    private const int VictoryTime = 60; // Время для победы (в секундах)
+    private const double PlayerMoveStep = 250; // Шаг перемещения игрока
+    private const double EnemySpawnDistance = 200; // Минимальное расстояние для появления врага
+    private const double CoefficientOfIntervalReduction = 0.9; // Коэффициент уменьшения интервала появления врагов
+    private const double TimeIntervalForTheAppearanceOfEnemies = 2; // Интервал появления врагов
+    private const double PlayerStartPositionX = 350; // Начальная позиция игрока по оси X
+    private const double PlayerStartPositionY = 350; // Начальная позиция игрока по оси Y
+
     MainWindow _mainWindow;
     MenuPage _menuPage;
+
+
 
     public GamePage(MainWindow mainWindow, MenuPage menuPage)
     {
         InitializeComponent();
-        
+
         _mainWindow = mainWindow;
         _menuPage = menuPage;
+
+        _availableTraps = InitialAvailableTraps;
 
         try
         {
@@ -59,7 +72,8 @@ public partial class GamePage : Page
         {
             MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}");
         }
-        _player = new Player(player, MainCanvas, 350, 350, 250);
+
+        _player = new Player(player, MainCanvas, PlayerStartPositionX, PlayerStartPositionY, PlayerMoveStep);
 
         this.KeyDown += GamePage_KeyDown;
         this.KeyUp += GamePage_KeyUp;
@@ -73,16 +87,17 @@ public partial class GamePage : Page
         UpdateTimeCounter();
         UpdateScoreCounter();
 
+        // Используем переменную для начального интервала появления врагов
         _enemySpawnTimer = new DispatcherTimer
         {
-            Interval = _currentSpawnInterval
+            Interval = TimeSpan.FromSeconds(InitialSpawnInterval)
         };
         _enemySpawnTimer.Tick += EnemySpawnTimer_Tick;
         _enemySpawnTimer.Start();
 
         _difficultyTimer = new DispatcherTimer
         {
-            Interval = TimeSpan.FromSeconds(2)
+            Interval = TimeSpan.FromSeconds(TimeIntervalForTheAppearanceOfEnemies)
         };
         _difficultyTimer.Tick += DifficultyTimer_Tick;
         _difficultyTimer.Start();
@@ -94,6 +109,7 @@ public partial class GamePage : Page
         _scoreTimer.Tick += ScoreTimer_Tick;
         _scoreTimer.Start();
     }
+
 
     private void UpdateTimeCounter()
     {
@@ -282,7 +298,7 @@ public partial class GamePage : Page
             enemyX = _random.NextDouble() * (MainCanvas.ActualWidth - 30);
             enemyY = _random.NextDouble() * (MainCanvas.ActualHeight - 30);
         }
-        while (Math.Sqrt(Math.Pow(enemyX - playerX, 2) + Math.Pow(enemyY - playerY, 2)) < 200);
+        while (Math.Sqrt(Math.Pow(enemyX - playerX, 2) + Math.Pow(enemyY - playerY, 2)) < EnemySpawnDistance);
 
         var enemy = new Enemy(MainCanvas, enemyX, enemyY);
         _enemies.Add(enemy);
@@ -292,7 +308,7 @@ public partial class GamePage : Page
     {
         if (_currentSpawnInterval.TotalSeconds > MinSpawnInterval)
         {
-            _currentSpawnInterval = TimeSpan.FromSeconds(_currentSpawnInterval.TotalSeconds * 0.9);
+            _currentSpawnInterval = TimeSpan.FromSeconds(_currentSpawnInterval.TotalSeconds * CoefficientOfIntervalReduction);
             _enemySpawnTimer.Interval = _currentSpawnInterval;
         }
     }

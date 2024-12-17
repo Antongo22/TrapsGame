@@ -19,8 +19,13 @@ namespace TrapsGame.Windows
     {
         MenuPage menuPage;
 
+        public const int SettingsHeight = 800;
+        public const int SettingsWidth = 800;
+
         public MainWindow()
         {
+            Height = SettingsHeight;
+            Width = SettingsWidth;
             menuPage = new MenuPage(this);
             InitializeComponent();
         }
