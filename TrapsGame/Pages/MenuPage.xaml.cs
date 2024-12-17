@@ -39,4 +39,9 @@ public partial class MenuPage : Page
     {
         _mainWindow.ChangePage(new GamePage(_mainWindow, this));
     }
+
+    private void ButtonSettings_Click(object sender, RoutedEventArgs e)
+    {
+        _mainWindow.ChangePage(new SettingsPage());
+    }
 }

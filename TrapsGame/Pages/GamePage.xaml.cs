@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using TrapsGame.Processes;
 using TrapsGame.Resources;
 using TrapsGame.Units;
 using TrapsGame.Windows;
@@ -37,18 +38,7 @@ public partial class GamePage : Page
     private DateTime _pauseStartTime; // Время начала паузы
     private TimeSpan _totalPauseTime = TimeSpan.Zero; // Общее время паузы
 
-    private const int InitialAvailableTraps = 10; // Начальное количество ловушек
-    private const double InitialSpawnInterval = 2.0; // Начальный интервал появления врагов
-    private const double MinSpawnInterval = 0.1; // Минимальный интервал появления врагов
-    private const int ScorePerSecond = 1; // Очки за каждую секунду
-    private const int ScorePerEnemy = 50; // Очки за уничтоженного врага
-    private const int VictoryTime = 60; // Время для победы (в секундах)
-    private const double PlayerMoveStep = 250; // Шаг перемещения игрока
-    private const double EnemySpawnDistance = 200; // Минимальное расстояние для появления врага
-    private const double CoefficientOfIntervalReduction = 0.9; // Коэффициент уменьшения интервала появления врагов
-    private const double TimeIntervalForTheAppearanceOfEnemies = 2; // Интервал появления врагов
-    private const double PlayerStartPositionX = 350; // Начальная позиция игрока по оси X
-    private const double PlayerStartPositionY = 350; // Начальная позиция игрока по оси Y
+
 
     MainWindow _mainWindow;
     MenuPage _menuPage;
@@ -62,7 +52,7 @@ public partial class GamePage : Page
         _mainWindow = mainWindow;
         _menuPage = menuPage;
 
-        _availableTraps = InitialAvailableTraps;
+        _availableTraps = Settings.Instance.InitialAvailableTraps;
 
         try
         {
@@ -73,7 +63,7 @@ public partial class GamePage : Page
             MessageBox.Show($"Ошибка загрузки изображения: {ex.Message}");
         }
 
-        _player = new Player(player, MainCanvas, PlayerStartPositionX, PlayerStartPositionY, PlayerMoveStep);
+        _player = new Player(player, MainCanvas, Settings.Instance.PlayerStartPositionX, Settings.Instance.PlayerStartPositionY, Settings.Instance.PlayerMoveStep);
 
         this.KeyDown += GamePage_KeyDown;
         this.KeyUp += GamePage_KeyUp;
@@ -90,14 +80,14 @@ public partial class GamePage : Page
         // Используем переменную для начального интервала появления врагов
         _enemySpawnTimer = new DispatcherTimer
         {
-            Interval = TimeSpan.FromSeconds(InitialSpawnInterval)
+            Interval = TimeSpan.FromSeconds(Settings.Instance.InitialSpawnInterval)
         };
         _enemySpawnTimer.Tick += EnemySpawnTimer_Tick;
         _enemySpawnTimer.Start();
 
         _difficultyTimer = new DispatcherTimer
         {
-            Interval = TimeSpan.FromSeconds(TimeIntervalForTheAppearanceOfEnemies)
+            Interval = TimeSpan.FromSeconds(Settings.Instance.TimeIntervalForTheAppearanceOfEnemies)
         };
         _difficultyTimer.Tick += DifficultyTimer_Tick;
         _difficultyTimer.Start();
@@ -249,14 +239,14 @@ public partial class GamePage : Page
         if (_isPaused) 
             return;
 
-        _score += ScorePerSecond;
+        _score += Settings.Instance.ScorePerSecond;
 
         UpdateScoreCounter();
 
         UpdateTimeCounter();
 
         var elapsedTime = DateTime.Now - _startTime - _totalPauseTime;
-        if (elapsedTime.TotalSeconds >= VictoryTime)
+        if (elapsedTime.TotalSeconds >= Settings.Instance.VictoryTime)
         {
             _mainWindow.ChangePage(new EndGamePage(true, _score, DateTime.Now - _startTime - _totalPauseTime, _mainWindow, _menuPage));
             TogglePause();
@@ -298,7 +288,7 @@ public partial class GamePage : Page
             enemyX = _random.NextDouble() * (MainCanvas.ActualWidth - 30);
             enemyY = _random.NextDouble() * (MainCanvas.ActualHeight - 30);
         }
-        while (Math.Sqrt(Math.Pow(enemyX - playerX, 2) + Math.Pow(enemyY - playerY, 2)) < EnemySpawnDistance);
+        while (Math.Sqrt(Math.Pow(enemyX - playerX, 2) + Math.Pow(enemyY - playerY, 2)) < Settings.Instance.EnemySpawnDistance);
 
         var enemy = new Enemy(MainCanvas, enemyX, enemyY);
         _enemies.Add(enemy);
@@ -306,9 +296,9 @@ public partial class GamePage : Page
 
     private void DifficultyTimer_Tick(object sender, EventArgs e)
     {
-        if (_currentSpawnInterval.TotalSeconds > MinSpawnInterval)
+        if (_currentSpawnInterval.TotalSeconds > Settings.Instance.MinSpawnInterval)
         {
-            _currentSpawnInterval = TimeSpan.FromSeconds(_currentSpawnInterval.TotalSeconds * CoefficientOfIntervalReduction);
+            _currentSpawnInterval = TimeSpan.FromSeconds(_currentSpawnInterval.TotalSeconds * Settings.Instance.CoefficientOfIntervalReduction);
             _enemySpawnTimer.Interval = _currentSpawnInterval;
         }
     }
@@ -329,7 +319,7 @@ public partial class GamePage : Page
                     _availableTraps++;
                     UpdateTrapCounter();
 
-                    _score += ScorePerEnemy;
+                    _score += Settings.Instance.ScorePerEnemy;
                     UpdateScoreCounter();
                     break;
                 }

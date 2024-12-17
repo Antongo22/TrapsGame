@@ -2,6 +2,7 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TrapsGame.Processes;
 using TrapsGame.Resources;
 
 namespace TrapsGame.Units;
@@ -11,10 +12,6 @@ public class Trap
     private readonly Rectangle _trapImage; // Изображение ловушки
     private readonly Canvas _gameCanvas; // Ссылка на Canvas
 
-
-    private const double TrapWidth = 30; // Ширина ловушки
-    private const double TrapHeight = 30; // Высота ловушки
-    private const double TrapStrokeThickness = 2; // Толщина обводки ловушки
 
     public double X { get; } // Позиция X ловушки
     public double Y { get; } // Позиция Y ловушки
@@ -33,11 +30,11 @@ public class Trap
 
         _trapImage = new Rectangle
         {
-            Width = TrapWidth,
-            Height = TrapHeight,
+            Width = Settings.Instance.TrapWidth,
+            Height = Settings.Instance.TrapHeight,
             Fill = new ImageBrush { ImageSource = trapImage },
             Stroke = Brushes.Black,
-            StrokeThickness = TrapStrokeThickness
+            StrokeThickness = Settings.Instance.TrapStrokeThickness
         };
 
         Canvas.SetLeft(_trapImage, X);

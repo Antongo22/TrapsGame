@@ -57,22 +57,23 @@
 
         <!-- Панель паузы -->
         <Grid x:Name="PausePanel" 
-              Grid.RowSpan="2" 
-              Background="Black" 
-              Opacity="0.8" 
-              Visibility="Collapsed">
-            <TextBlock Text="Игра на паузе" 
-                       FontSize="32" 
-                       Foreground="White" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Center" 
-                       Margin="0, -50, 0, 0" />
-            <Button Content="Продолжить" 
-                    Width="150" 
-                    Height="50" 
-                    FontSize="16" 
-                    VerticalAlignment="Top" 
-                    Click="PauseButton_Click" Margin="0,410,0,0" />
+      Grid.RowSpan="2" 
+      Background="Black" 
+      Opacity="0.8" 
+      Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Игра на паузе" 
+                   FontSize="32" 
+                   Foreground="White" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,20" />
+
+                <Button Content="Продолжить" 
+                Width="150" 
+                Height="50" 
+                FontSize="16" 
+                Click="PauseButton_Click" />
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

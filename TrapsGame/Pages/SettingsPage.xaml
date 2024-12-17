@@ -1,14 +1,230 @@
-﻿<Page x:Class="TrapsGame.Pages.SettingsPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:TrapsGame.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="SettingsPage">
+﻿<Page
+    x:Class="TrapsGame.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TrapsGame.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="SettingsPage"
+    d:DesignHeight="800"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
 
     <Grid>
-        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock
+                    Margin="0,0,0,20"
+                    HorizontalAlignment="Center"
+                    FontSize="24"
+                    FontWeight="Bold"
+                    Text="Настройки игры" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Начальное количество ловушек:" />
+                <TextBox
+                    x:Name="InitialAvailableTrapsTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Начальный интервал появления врагов:" />
+                <TextBox
+                    x:Name="InitialSpawnIntervalTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Минимальный интервал появления врагов:" />
+                <TextBox
+                    x:Name="MinSpawnIntervalTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Очки за каждую секунду:" />
+                <TextBox
+                    x:Name="ScorePerSecondTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Очки за уничтоженного врага:" />
+                <TextBox
+                    x:Name="ScorePerEnemyTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Время для победы (в секундах):" />
+                <TextBox
+                    x:Name="VictoryTimeTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Шаг перемещения игрока:" />
+                <TextBox
+                    x:Name="PlayerMoveStepTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Минимальное расстояние для появления врага:" />
+                <TextBox
+                    x:Name="EnemySpawnDistanceTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Коэффициент уменьшения интервала появления врагов:" />
+                <TextBox
+                    x:Name="CoefficientOfIntervalReductionTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Интервал появления врагов:" />
+                <TextBox
+                    x:Name="TimeIntervalForTheAppearanceOfEnemiesTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Начальная позиция игрока по X:" />
+                <TextBox
+                    x:Name="PlayerStartPositionXTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Начальная позиция игрока по Y:" />
+                <TextBox
+                    x:Name="PlayerStartPositionYTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Ширина ловушки:" />
+                <TextBox
+                    x:Name="TrapWidthTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Высота ловушки:" />
+                <TextBox
+                    x:Name="TrapHeightTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Толщина обводки ловушки:" />
+                <TextBox
+                    x:Name="TrapStrokeThicknessTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Ширина врага:" />
+                <TextBox
+                    x:Name="EnemyWidthTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Высота врага:" />
+                <TextBox
+                    x:Name="EnemyHeightTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Скорость движения врага:" />
+                <TextBox
+                    x:Name="EnemyMoveSpeedTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Случайное отклонение движения врага:" />
+                <TextBox
+                    x:Name="EnemyRandomDeviationTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Ширина окна:" />
+                <TextBox
+                    x:Name="WindowWidthTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Высота окна:" />
+                <TextBox
+                    x:Name="WindowHeightTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" />
+
+                <Button
+                    Width="200"
+                    Height="40"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Left"
+                    Click="SaveSettingsButton_Click"
+                    Content="Сохранить настройки" />
+
+                <Button
+                    Width="200"
+                    Height="40"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Left"
+                    Click="ResetSettingsButton_Click"
+                    Content="Сбросить настройки" />
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
