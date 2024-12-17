@@ -37,6 +37,10 @@ public partial class GamePage : Page
     private const int ScorePerEnemy = 50; // Очки за уничтоженного врага
     private const int VictoryTime = 60; // Время для победы (в секундах)
 
+    private bool _isPaused = false; // Флаг для отслеживания состояния паузы
+    private DateTime _pauseStartTime; // Время начала паузы
+    private TimeSpan _totalPauseTime = TimeSpan.Zero; // Общее время паузы
+
     public GamePage(MainWindow mainWindow, MenuPage menuPage)
     {
         InitializeComponent();
@@ -87,7 +91,7 @@ public partial class GamePage : Page
 
     private void UpdateTimeCounter()
     {
-        var elapsedTime = DateTime.Now - _startTime;
+        var elapsedTime = DateTime.Now - _startTime - _totalPauseTime;
         TimeCounterTextBlock.Text = $"Время: {elapsedTime.Minutes:00}:{elapsedTime.Seconds:00}";
     }
 
@@ -109,6 +113,9 @@ public partial class GamePage : Page
                 break;
             case Key.Space:
                 PlaceTrap();
+                break;
+            case Key.Escape:
+                TogglePause();
                 break;
         }
     }
@@ -132,10 +139,46 @@ public partial class GamePage : Page
         }
     }
 
+
+    private void TogglePause()
+    {
+        _isPaused = !_isPaused;
+
+        if (_isPaused)
+        {
+            _enemySpawnTimer.Stop();
+            _difficultyTimer.Stop();
+            _scoreTimer.Stop();
+
+            _pauseStartTime = DateTime.Now;
+
+            PausePanel.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            _enemySpawnTimer.Start();
+            _difficultyTimer.Start();
+            _scoreTimer.Start();
+
+            _totalPauseTime += DateTime.Now - _pauseStartTime;
+
+            PausePanel.Visibility = Visibility.Collapsed;
+        }
+    }
+
+
+
+    private void PauseButton_Click(object sender, RoutedEventArgs e)
+    {
+        TogglePause();
+    }
+
     private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
-        var currentTime = DateTime.Now;
+        if (_isPaused) 
+            return;
 
+        var currentTime = DateTime.Now;
         var elapsedTime = currentTime - _lastFrameTime;
 
         _player.Move(_isWPressed, _isAPressed, _isSPressed, _isDPressed, elapsedTime);
@@ -178,15 +221,19 @@ public partial class GamePage : Page
 
     }
 
+
     private void ScoreTimer_Tick(object sender, EventArgs e)
     {
+        if (_isPaused) 
+            return;
+
         _score += ScorePerSecond;
 
         UpdateScoreCounter();
 
         UpdateTimeCounter();
 
-        var elapsedTime = DateTime.Now - _startTime;
+        var elapsedTime = DateTime.Now - _startTime - _totalPauseTime;
         if (elapsedTime.TotalSeconds >= VictoryTime)
         {
             MessageBox.Show($"Поздравляем! Вы победили!\nВаш счет: {_score}");
