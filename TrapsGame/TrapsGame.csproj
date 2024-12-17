@@ -9,15 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\аниме тян.png" />
+    <None Remove="Images\player.png" />
+    <None Remove="Images\Trap.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\ResourceDictionary.xaml" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="Processes\Record.cs" />
+    <Resource Include="Images\player.png" />
+    <Resource Include="Images\trap.png" />
+    <Resource Include="Resources\ResourceDictionary.xaml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Pages\аниме тян.png" />
+    <Resource Include="Pages\player.png" />
   </ItemGroup>
 
 </Project>

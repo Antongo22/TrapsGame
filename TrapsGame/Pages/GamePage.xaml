@@ -8,9 +8,30 @@
       d:DesignHeight="800" d:DesignWidth="800"
       Title="GamePage">
 
-    <Canvas x:Name="MainCanvas" >
-        
-        <Image x:Name="player" Source="/Pages/аниме тян.png" Width="80" Height="80"/>
-        
-    </Canvas>
+    <!-- Используем Grid для размещения элементов -->
+    <Grid>
+        <!-- Добавляем строки в Grid -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Строка для счёта -->
+            <RowDefinition Height="*"/>
+            <!-- Строка для игрового поля -->
+        </Grid.RowDefinitions>
+
+        <!-- TextBlock для отображения количества ловушек -->
+        <TextBlock x:Name="TrapCounterTextBlock" 
+                   Grid.Row="0" 
+                   Width="100" 
+                   Height="30" 
+                   HorizontalAlignment="Left" 
+                   VerticalAlignment="Top" 
+                   FontSize="16" 
+                   TextAlignment="Center" />
+
+        <!-- Игровое поле -->
+        <Canvas x:Name="MainCanvas" 
+                Grid.Row="1" >
+            <Image x:Name="player" Source="/Images/player.png" Width="80" Height="80"/>
+        </Canvas>
+    </Grid>
 </Page>
