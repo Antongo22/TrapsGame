@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\enemy.png" />
     <None Remove="Images\player.png" />
     <None Remove="Images\Trap.png" />
   </ItemGroup>
@@ -19,13 +20,10 @@
 
   <ItemGroup>
     <None Include="Processes\Record.cs" />
+    <Resource Include="Images\enemy.png" />
     <Resource Include="Images\player.png" />
     <Resource Include="Images\trap.png" />
     <Resource Include="Resources\ResourceDictionary.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Pages\player.png" />
   </ItemGroup>
 
 </Project>

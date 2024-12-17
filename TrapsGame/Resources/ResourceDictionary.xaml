@@ -4,4 +4,5 @@
     <!-- Добавляем изображение -->
     <BitmapImage x:Key="Player" UriSource="/Images/player.png"/>
     <BitmapImage x:Key="Trap" UriSource="/Images/Trap.png"/>
+    <BitmapImage x:Key="Enemy" UriSource="/Images/Enemy.png"/>
 </ResourceDictionary>

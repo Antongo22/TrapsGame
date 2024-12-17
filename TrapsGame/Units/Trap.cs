@@ -8,10 +8,20 @@ namespace TrapsGame.Units;
 
 public class Trap
 {
-    private readonly Rectangle _trapImage; 
+    private readonly Rectangle _trapImage; // Изображение ловушки
+    private readonly Canvas _gameCanvas; // Ссылка на Canvas
+
+    public double X { get; } // Позиция X ловушки
+    public double Y { get; } // Позиция Y ловушки
+    public double Width => _trapImage.Width; // Ширина ловушки
+    public double Height => _trapImage.Height; // Высота ловушки
 
     public Trap(Canvas gameCanvas, double x, double y)
     {
+        _gameCanvas = gameCanvas;
+        X = x;
+        Y = y;
+
         BitmapImage trapImage = ResDict.GetImage("Trap");
 
         _trapImage = new Rectangle
@@ -19,20 +29,20 @@ public class Trap
             Width = 30,
             Height = 30,
             Fill = new ImageBrush { ImageSource = trapImage },
+            Stroke = Brushes.Black,
             StrokeThickness = 2
         };
 
-        Canvas.SetLeft(_trapImage, x);
-        Canvas.SetTop(_trapImage, y);
+        Canvas.SetLeft(_trapImage, X);
+        Canvas.SetTop(_trapImage, Y);
 
-        // Добавляем ловушку на Canvas
         gameCanvas.Children.Add(_trapImage);
 
         Canvas.SetZIndex(_trapImage, 1);
     }
 
-    public void Remove(Canvas gameCanvas)
+    public void Remove()
     {
-        gameCanvas.Children.Remove(_trapImage);
+        _gameCanvas.Children.Remove(_trapImage);
     }
 }
