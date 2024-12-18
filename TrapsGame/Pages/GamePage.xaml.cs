@@ -149,6 +149,12 @@ public partial class GamePage : Page
 
     private void PauseButton_Click(object sender, RoutedEventArgs e)
     {
+        var request = new TraversalRequest(FocusNavigationDirection.Previous);
+        if (PauseButton.Focusable)
+        {
+            PauseButton.MoveFocus(request);
+        }
+
         _gameLogic.TogglePause();
         TogglePause();
     }
