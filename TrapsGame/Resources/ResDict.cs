@@ -4,22 +4,30 @@ using System.Windows.Media.Imaging;
 
 namespace TrapsGame.Resources;
 
-internal static class ResDict
+public static class ResDict
 {
     public static BitmapImage GetImage(string imageName)
     {
-        ResourceDictionary Resources = new ResourceDictionary()
+        try
         {
-            Source = new Uri("pack://application:,,,/Resources/ResourceDictionary.xaml")
-        };
+            ResourceDictionary Resources = new ResourceDictionary()
+            {
+                Source = new Uri("pack://application:,,,/Resources/ResourceDictionary.xaml")
+            };
 
-        if (Resources.Contains(imageName))
-        {            
-            return (BitmapImage)Resources[imageName];
+            if (Resources.Contains(imageName))
+            {
+                return (BitmapImage)Resources[imageName];
+            }
+            else
+            {
+                throw new Exception($"Изображение с именем '{imageName}' не найдено в ResourceDictionary.");
+            }
+
         }
-        else
+        catch
         {
-            throw new Exception($"Изображение с именем '{imageName}' не найдено в ResourceDictionary.");
+            return null;
         }
     }
 }

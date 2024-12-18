@@ -10,7 +10,7 @@ namespace TrapsGame.Units;
 
 public class Enemy
 {
-    private readonly Rectangle _enemyImage; // Изображение врага
+    public readonly Rectangle _enemyImage; // Изображение врага
     private readonly Canvas _gameCanvas; // Ссылка на Canvas
     private readonly Random _random = new(); // Для случайного направления
 
@@ -54,15 +54,17 @@ public class Enemy
             directionY /= distanceToPlayer;
         }
 
-
         double deviationX = (_random.NextDouble() * 2 - 1) * Settings.Instance.EnemyRandomDeviation;
         double deviationY = (_random.NextDouble() * 2 - 1) * Settings.Instance.EnemyRandomDeviation;
 
         X += (directionX + deviationX) * Settings.Instance.EnemyMoveSpeed;
         Y += (directionY + deviationY) * Settings.Instance.EnemyMoveSpeed;
 
-        X = Math.Clamp(X, 0, _gameCanvas.ActualWidth - _enemyImage.Width);
-        Y = Math.Clamp(Y, 0, _gameCanvas.ActualHeight - _enemyImage.Height);
+        double maxX = Math.Max(0, _gameCanvas.ActualWidth - _enemyImage.Width);
+        double maxY = Math.Max(0, _gameCanvas.ActualHeight - _enemyImage.Height);
+
+        X = Math.Clamp(X, 0, maxX);
+        Y = Math.Clamp(Y, 0, maxY);
 
         Canvas.SetLeft(_enemyImage, X);
         Canvas.SetTop(_enemyImage, Y);

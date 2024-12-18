@@ -136,12 +136,15 @@ public partial class GamePage : Page
 
     private void OnTrapTriggered()
     {
+        UpdateTrapCounter();
         PlaySound("Resources/boom.mp3");
     }
 
     private void OnPlayerDied()
     {
         PlaySound("Resources/death.mp3");
+        _gameLogic.TogglePause();
+        TogglePause();
     }
 
     private void PauseButton_Click(object sender, RoutedEventArgs e)

@@ -2,7 +2,7 @@
 
 namespace TrapsGame.Processes;
 
-internal static class Record
+public static class Record
 {
     static string _path = Directory.GetCurrentDirectory() + "/record.txt";
 

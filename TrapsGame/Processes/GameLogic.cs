@@ -25,7 +25,7 @@ public class GameLogic
     private TimeSpan _totalPauseTime = TimeSpan.Zero; // Общее время паузы
     private bool _isPaused = false; // Флаг для отслеживания состояния паузы
 
-    private readonly DispatcherTimer _enemySpawnTimer; // Таймер для создания врагов
+    public readonly DispatcherTimer _enemySpawnTimer; // Таймер для создания врагов
     private readonly DispatcherTimer _difficultyTimer; // Таймер для увеличения сложности
     private readonly DispatcherTimer _scoreTimer; // Таймер для обновления счета
 
@@ -158,7 +158,7 @@ public class GameLogic
         _enemies.Add(enemy);
     }
 
-    private void DifficultyTimer_Tick(object sender, EventArgs e)
+    public void DifficultyTimer_Tick(object sender, EventArgs e)
     {
         if (_enemySpawnTimer.Interval.TotalSeconds > Settings.Instance.MinSpawnInterval)
         {
@@ -227,7 +227,7 @@ public class GameLogic
                enemy.Y + enemy.Height > player.Y;
     }
 
-    private void OnGameEnded(bool isVictory)
+    public void OnGameEnded(bool isVictory)
     {
         GameEnded?.Invoke(isVictory);
 
