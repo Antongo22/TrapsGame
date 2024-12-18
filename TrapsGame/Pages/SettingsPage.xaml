@@ -237,16 +237,16 @@
                     x:Name="MusicVolumeSlider"
                     Width="200"
                     HorizontalAlignment="Left"
-                    Minimum="0"
-                    Maximum="1"
-                    SmallChange="0.01"
                     LargeChange="0.1"
+                    Maximum="1"
+                    Minimum="0"
+                    SmallChange="0.01"
                     ValueChanged="MusicVolumeSlider_ValueChanged" />
                 <TextBox
                     x:Name="MusicVolumeTextBox"
                     Width="200"
-                    HorizontalAlignment="Left" 
-                    IsReadOnly="True"/>
+                    HorizontalAlignment="Left"
+                    IsReadOnly="True" />
 
                 <Button
                     Width="200"
@@ -263,6 +263,14 @@
                     HorizontalAlignment="Left"
                     Click="ResetSettingsButton_Click"
                     Content="Сбросить настройки" />
+
+                <Button
+                    Width="200"
+                    Height="40"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Left"
+                    Click="ExitWithoutSavingButton_Click"
+                    Content="Выход без сохранения" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -4,13 +4,20 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using TrapsGame.Processes;
+using TrapsGame.Windows;
 
 namespace TrapsGame.Pages
 {
     public partial class SettingsPage : Page
     {
-        public SettingsPage()
+        private MainWindow _mainWindow;
+        private MenuPage _menuPage;
+
+        public SettingsPage(MainWindow mainWindow, MenuPage menuPage)
         {
+            _mainWindow = mainWindow;
+            _menuPage = menuPage;
+
             InitializeComponent();
             LoadSettings();
         }
@@ -115,6 +122,11 @@ namespace TrapsGame.Pages
             {
                 MessageBox.Show($"Ошибка при сбросе настроек: {ex.Message}");
             }
+        }
+
+        private void ExitWithoutSavingButton_Click(object sender, RoutedEventArgs e)
+        {
+            _mainWindow.ChangePage(_menuPage);
         }
     }
 }

@@ -42,6 +42,6 @@ public partial class MenuPage : Page
 
     private void ButtonSettings_Click(object sender, RoutedEventArgs e)
     {
-        _mainWindow.ChangePage(new SettingsPage());
+        _mainWindow.ChangePage(new SettingsPage(_mainWindow, this));
     }
 }
