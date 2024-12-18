@@ -39,14 +39,10 @@ public partial class GamePage : Page
     private DateTime _pauseStartTime; // Время начала паузы
     private TimeSpan _totalPauseTime = TimeSpan.Zero; // Общее время паузы
 
-
     private MediaPlayer _soundPlayer = new MediaPlayer();
-
 
     MainWindow _mainWindow;
     MenuPage _menuPage;
-
-
 
     public GamePage(MainWindow mainWindow, MenuPage menuPage)
     {
@@ -70,7 +66,6 @@ public partial class GamePage : Page
         player.Width = Settings.Instance.PlayerWidth;
         player.Height = Settings.Instance.PlayerHeight;
 
-
         this.KeyDown += GamePage_KeyDown;
         this.KeyUp += GamePage_KeyUp;
 
@@ -83,7 +78,6 @@ public partial class GamePage : Page
         UpdateTimeCounter();
         UpdateScoreCounter();
 
-        // Используем переменную для начального интервала появления врагов
         _enemySpawnTimer = new DispatcherTimer
         {
             Interval = TimeSpan.FromSeconds(Settings.Instance.InitialSpawnInterval)
@@ -105,7 +99,6 @@ public partial class GamePage : Page
         _scoreTimer.Tick += ScoreTimer_Tick;
         _scoreTimer.Start();
     }
-
 
     private void UpdateTimeCounter()
     {
@@ -157,7 +150,6 @@ public partial class GamePage : Page
         }
     }
 
-
     private void TogglePause()
     {
         _isPaused = !_isPaused;
@@ -184,8 +176,6 @@ public partial class GamePage : Page
         }
     }
 
-
-
     private void PauseButton_Click(object sender, RoutedEventArgs e)
     {
         TogglePause();
@@ -193,7 +183,7 @@ public partial class GamePage : Page
 
     private void CompositionTarget_Rendering(object sender, EventArgs e)
     {
-        if (_isPaused) 
+        if (_isPaused)
             return;
 
         var currentTime = DateTime.Now;
@@ -201,12 +191,9 @@ public partial class GamePage : Page
 
         _player.Move(_isWPressed, _isAPressed, _isSPressed, _isDPressed, elapsedTime);
 
-        double playerX = Canvas.GetLeft(player);
-        double playerY = Canvas.GetTop(player);
-
         foreach (var enemy in _enemies)
         {
-            enemy.UpdatePosition(playerX, playerY);
+            enemy.UpdatePosition(_player.X, _player.Y);
         }
 
         CheckCollisions();
@@ -221,11 +208,8 @@ public partial class GamePage : Page
             return;
         }
 
-        double playerX = Canvas.GetLeft(player);
-        double playerY = Canvas.GetTop(player);
-
-        double trapX = playerX + player.ActualWidth / 2;
-        double trapY = playerY + player.ActualHeight / 2;
+        double trapX = _player.X + _player.Width / 2;
+        double trapY = _player.Y + _player.Height / 2;
 
         var trap = new Trap(MainCanvas, trapX, trapY);
 
@@ -236,13 +220,11 @@ public partial class GamePage : Page
         _availableTraps--;
 
         UpdateTrapCounter();
-
     }
-
 
     private void ScoreTimer_Tick(object sender, EventArgs e)
     {
-        if (_isPaused) 
+        if (_isPaused)
             return;
 
         _score += Settings.Instance.ScorePerSecond;
@@ -257,15 +239,12 @@ public partial class GamePage : Page
             _mainWindow.ChangePage(new EndGamePage(true, _score, DateTime.Now - _startTime - _totalPauseTime, _mainWindow, _menuPage));
             TogglePause();
         }
-    } 
-
+    }
 
     private void UpdateScoreCounter()
     {
         ScoreCounterTextBlock.Text = $"Очки: {_score}";
     }
-
-  
 
     private async void RemoveTrapAfterDelay(Trap trap, TimeSpan delay)
     {
@@ -286,15 +265,13 @@ public partial class GamePage : Page
     private void EnemySpawnTimer_Tick(object sender, EventArgs e)
     {
         double enemyX, enemyY;
-        double playerX = Canvas.GetLeft(player);
-        double playerY = Canvas.GetTop(player);
 
         do
         {
             enemyX = _random.NextDouble() * (MainCanvas.ActualWidth - 30);
             enemyY = _random.NextDouble() * (MainCanvas.ActualHeight - 30);
         }
-        while (Math.Sqrt(Math.Pow(enemyX - playerX, 2) + Math.Pow(enemyY - playerY, 2)) < Settings.Instance.EnemySpawnDistance);
+        while (Math.Sqrt(Math.Pow(enemyX - _player.X, 2) + Math.Pow(enemyY - _player.Y, 2)) < Settings.Instance.EnemySpawnDistance);
 
         var enemy = new Enemy(MainCanvas, enemyX, enemyY);
         _enemies.Add(enemy);
@@ -334,7 +311,7 @@ public partial class GamePage : Page
                 }
             }
 
-            if (IsColliding(enemy, player))
+            if (IsColliding(enemy, _player))
             {
                 PlaySound("Resources/death.mp3");
 
@@ -346,7 +323,6 @@ public partial class GamePage : Page
 
     private void PlaySound(string soundPath)
     {
-
         string basePath = AppDomain.CurrentDomain.BaseDirectory;
         string musicPath = Path.Combine(basePath, soundPath);
 
@@ -363,14 +339,11 @@ public partial class GamePage : Page
                enemy.Y + enemy.Height > trap.Y;
     }
 
-    private bool IsColliding(Enemy enemy, Image player)
+    private bool IsColliding(Enemy enemy, Player player)
     {
-        double playerX = Canvas.GetLeft(player);
-        double playerY = Canvas.GetTop(player);
-
-        return enemy.X < playerX + player.ActualWidth &&
-               enemy.X + enemy.Width > playerX &&
-               enemy.Y < playerY + player.ActualHeight &&
-               enemy.Y + enemy.Height > playerY;
+        return enemy.X < player.X + player.Width &&
+               enemy.X + enemy.Width > player.X &&
+               enemy.Y < player.Y + player.Height &&
+               enemy.Y + enemy.Height > player.Y;
     }
 }
