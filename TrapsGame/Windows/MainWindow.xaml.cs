@@ -29,7 +29,7 @@ namespace TrapsGame.Windows
 
             
             Uri musicUri = new Uri(musicPath, UriKind.Relative);
-            _mediaPlayer.Volume = 0.5;
+            _mediaPlayer.Volume = Settings.Instance.MusicVolume;
 
             _mediaPlayer.Open(musicUri);
 

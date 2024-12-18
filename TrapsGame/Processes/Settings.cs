@@ -34,6 +34,7 @@ public class Settings
     public double WindowHeight { get; set; }
     public double PlayerWidth { get; set; } 
     public double PlayerHeight { get; set; }
+    public double MusicVolume { get; set; }
 
     private Settings()
     {
@@ -82,6 +83,7 @@ public class Settings
             WindowHeight = double.Parse(root.Element("WindowHeight")?.Value ?? "600", CultureInfo.InvariantCulture);
             PlayerWidth = double.Parse(root.Element("PlayerWidth")?.Value ?? "80", CultureInfo.InvariantCulture);
             PlayerHeight = double.Parse(root.Element("PlayerHeight")?.Value ?? "80", CultureInfo.InvariantCulture);
+            MusicVolume = double.Parse(root.Element("MusicVolume")?.Value ?? "0.5", CultureInfo.InvariantCulture);
         }
         catch (Exception ex)
         {
@@ -115,7 +117,8 @@ public class Settings
                 new XElement("WindowWidth", "800"), 
                 new XElement("WindowHeight", "800"),
                 new XElement("PlayerWidth", "80"),
-                new XElement("PlayerHeight", "80")
+                new XElement("PlayerHeight", "80"),
+                new XElement("MusicVolume", "0.5")
             )
         );
 
@@ -154,9 +157,10 @@ public class Settings
                 new XElement("WindowWidth", WindowWidth.ToString(CultureInfo.InvariantCulture)),
                 new XElement("WindowHeight", WindowHeight.ToString(CultureInfo.InvariantCulture)),
                 new XElement("PlayerWidth", PlayerWidth.ToString(CultureInfo.InvariantCulture)),
-                new XElement("PlayerHeight", PlayerHeight.ToString(CultureInfo.InvariantCulture))
-            )
-        );
+                new XElement("PlayerHeight", PlayerHeight.ToString(CultureInfo.InvariantCulture)),
+                new XElement("MusicVolume", MusicVolume.ToString(CultureInfo.InvariantCulture))
+                )            
+             );
 
         settingsXml.Save(SettingsFilePath);
     }

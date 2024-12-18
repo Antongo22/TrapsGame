@@ -42,6 +42,8 @@ namespace TrapsGame.Pages
             WindowHeightTextBox.Text = settings.WindowHeight.ToString(CultureInfo.InvariantCulture);
             PlayerWidthTextBox.Text = settings.PlayerWidth.ToString(CultureInfo.InvariantCulture);
             PlayerHeightTextBox.Text = settings.PlayerHeight.ToString(CultureInfo.InvariantCulture);
+            MusicVolumeSlider.Value = settings.MusicVolume;
+            MusicVolumeTextBox.Text = settings.MusicVolume.ToString(CultureInfo.InvariantCulture);
         }
 
         private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
@@ -73,6 +75,7 @@ namespace TrapsGame.Pages
                 settings.WindowHeight = double.Parse(WindowHeightTextBox.Text, CultureInfo.InvariantCulture);
                 settings.PlayerWidth = double.Parse(PlayerWidthTextBox.Text, CultureInfo.InvariantCulture);
                 settings.PlayerHeight = double.Parse(PlayerHeightTextBox.Text, CultureInfo.InvariantCulture);
+                settings.MusicVolume = double.Parse(MusicVolumeTextBox.Text, CultureInfo.InvariantCulture);
 
                 settings.SaveSettings();
 
@@ -85,6 +88,14 @@ namespace TrapsGame.Pages
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка при сохранении настроек: {ex.Message}");
+            }
+        }
+
+        private void MusicVolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (MusicVolumeTextBox != null)
+            {
+                MusicVolumeTextBox.Text = e.NewValue.ToString("0.00", CultureInfo.InvariantCulture);
             }
         }
 

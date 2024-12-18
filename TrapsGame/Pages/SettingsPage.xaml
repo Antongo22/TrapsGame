@@ -226,9 +226,27 @@
                     Text="Высота игрока:" />
                 <TextBox
                     x:Name="PlayerHeightTextBox"
-                    Width="100"
+                    Width="200"
                     HorizontalAlignment="Left" />
 
+                <TextBlock
+                    Margin="0,10,0,5"
+                    FontSize="16"
+                    Text="Громкость музыки:" />
+                <Slider
+                    x:Name="MusicVolumeSlider"
+                    Width="200"
+                    HorizontalAlignment="Left"
+                    Minimum="0"
+                    Maximum="1"
+                    SmallChange="0.01"
+                    LargeChange="0.1"
+                    ValueChanged="MusicVolumeSlider_ValueChanged" />
+                <TextBox
+                    x:Name="MusicVolumeTextBox"
+                    Width="200"
+                    HorizontalAlignment="Left" 
+                    IsReadOnly="True"/>
 
                 <Button
                     Width="200"

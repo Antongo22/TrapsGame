@@ -163,6 +163,7 @@ public partial class GamePage : Page
         string musicPath = System.IO.Path.Combine(basePath, soundPath);
 
         Uri soundUri = new Uri(musicPath, UriKind.Relative);
+        _soundPlayer.Volume = Settings.Instance.MusicVolume;
         _soundPlayer.Open(soundUri);
         _soundPlayer.Play();
     }
