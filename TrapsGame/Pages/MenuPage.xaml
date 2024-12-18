@@ -11,7 +11,9 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid>
-
+        <Grid.Background>
+            <ImageBrush ImageSource="/Images/back.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
 
         <Button
             x:Name="ButtonPlay"
@@ -30,11 +32,12 @@
             Content="Настройки"
             FontSize="35" Click="ButtonSettings_Click" />
         <TextBlock x:Name="RecordTextBlock"
-            Height="103"
+            Height="62"
             Margin="10,10,10,0"
             VerticalAlignment="Top"
             Text="Лучший результат — 0"
-            TextWrapping="Wrap" FontSize="35" />
+            TextWrapping="Wrap" FontSize="35"
+            Foreground="#22252f"/>
 
     </Grid>
 </Page>
